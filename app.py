@@ -125,24 +125,32 @@ st.markdown("""
         box-shadow: 0 20px 25px -5px rgba(37, 99, 235, 0.3);
     }
     
-    .input-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 1.5rem;
+    /* Streamlit component overrides for input section */
+    .input-section .stSelectbox label, 
+    .input-section .stSlider label {
+        color: white !important;
+        font-weight: 600 !important;
+        font-size: 0.875rem !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.05em !important;
+        margin-bottom: 0.5rem !important;
     }
     
-    .input-card {
-        background: rgba(255, 255, 255, 0.15);
-        backdrop-filter: blur(10px);
-        border-radius: 16px;
-        padding: 1.5rem;
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        transition: all 0.3s ease;
+    .input-section .stSelectbox > div > div {
+        background: rgba(255, 255, 255, 0.2) !important;
+        border: 1px solid rgba(255, 255, 255, 0.3) !important;
+        border-radius: 12px !important;
+        color: white !important;
+        font-weight: 500 !important;
     }
     
-    .input-card:hover {
-        background: rgba(255, 255, 255, 0.25);
-        transform: translateY(-2px);
+    .input-section .stSlider > div > div > div > div {
+        background: linear-gradient(90deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.5)) !important;
+    }
+    
+    .input-section .stSlider .stSlider > div > div > div {
+        background: rgba(255, 255, 255, 0.1) !important;
+        border-radius: 8px !important;
     }
     
     /* Results grid */
@@ -271,28 +279,6 @@ st.markdown("""
         grid-template-columns: 1fr 1fr;
         gap: 2rem;
         margin-top: 3rem;
-    }
-    
-    /* Streamlit component overrides */
-    .stSelectbox label, .stSlider label {
-        color: white !important;
-        font-weight: 600 !important;
-        font-size: 0.875rem !important;
-        text-transform: uppercase !important;
-        letter-spacing: 0.05em !important;
-        margin-bottom: 0.5rem !important;
-    }
-    
-    .stSelectbox > div > div {
-        background: rgba(255, 255, 255, 0.2) !important;
-        border: 1px solid rgba(255, 255, 255, 0.3) !important;
-        border-radius: 12px !important;
-        color: white !important;
-        font-weight: 500 !important;
-    }
-    
-    .stSlider > div > div > div > div {
-        background: linear-gradient(90deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.5)) !important;
     }
     
     /* Hide Streamlit elements */
@@ -563,46 +549,30 @@ def main():
     
     # Input section
     st.markdown('<div class="input-section">', unsafe_allow_html=True)
-    st.markdown('<div class="input-grid">', unsafe_allow_html=True)
     
     col1, col2, col3, col4, col5, col6, col7 = st.columns(7)
     
     with col1:
-        st.markdown('<div class="input-card">', unsafe_allow_html=True)
         age = st.slider("Patient Age", 18, 90, 55)
-        st.markdown('</div>', unsafe_allow_html=True)
     
     with col2:
-        st.markdown('<div class="input-card">', unsafe_allow_html=True)
         gender = st.selectbox("Gender", ["female", "male"])
-        st.markdown('</div>', unsafe_allow_html=True)
     
     with col3:
-        st.markdown('<div class="input-card">', unsafe_allow_html=True)
         location = st.selectbox("Tumor Location", ["parotid", "submandibular", "minor"])
-        st.markdown('</div>', unsafe_allow_html=True)
     
     with col4:
-        st.markdown('<div class="input-card">', unsafe_allow_html=True)
         size = st.selectbox("Tumor Size", ["≤2cm", "2-4cm", ">4cm"])
-        st.markdown('</div>', unsafe_allow_html=True)
     
     with col5:
-        st.markdown('<div class="input-card">', unsafe_allow_html=True)
         margins = st.selectbox("Tumor Margins", ["regular", "irregular"])
-        st.markdown('</div>', unsafe_allow_html=True)
     
     with col6:
-        st.markdown('<div class="input-card">', unsafe_allow_html=True)
         echo = st.selectbox("Echogenicity", ["iso-hyperechoic", "hypoechoic"])
-        st.markdown('</div>', unsafe_allow_html=True)
     
     with col7:
-        st.markdown('<div class="input-card">', unsafe_allow_html=True)
         vascularity = st.selectbox("Vascularity", ["normal", "increased"])
-        st.markdown('</div>', unsafe_allow_html=True)
     
-    st.markdown('</div>', unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
     
     # Create patient data and predict
