@@ -26,74 +26,180 @@ st.markdown("""
 <style>
     .main-header {
         text-align: center;
-        padding: 2rem 0;
+        padding: 2.5rem 0;
         border-bottom: 3px solid #0066cc;
-        margin-bottom: 2rem;
+        margin-bottom: 2.5rem;
     }
     
     .app-title {
-        font-size: 2.5rem;
+        font-size: 2.8rem;
         color: #0066cc;
         font-weight: bold;
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.8rem;
+        letter-spacing: -0.5px;
     }
     
     .app-subtitle {
-        font-size: 1.1rem;
-        color: #666;
-        margin-bottom: 1rem;
+        font-size: 1.2rem;
+        color: #555;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+    }
+    
+    .app-tagline {
+        color: #888;
+        font-size: 0.95rem;
+        font-style: italic;
     }
     
     .input-section {
         background-color: #f8f9fa;
-        padding: 1.5rem;
-        border-radius: 10px;
-        margin-bottom: 2rem;
-        border-left: 4px solid #0066cc;
+        padding: 2rem;
+        border-radius: 12px;
+        margin-bottom: 2.5rem;
+        border-left: 5px solid #0066cc;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     }
     
     .section-title {
-        font-size: 1.3rem;
+        font-size: 1.4rem;
         color: #333;
         font-weight: 600;
-        margin-bottom: 1rem;
-        padding-bottom: 0.5rem;
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.8rem;
         border-bottom: 2px solid #e9ecef;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
     }
     
-    .risk-result {
+    .results-section {
+        margin-bottom: 2.5rem;
+    }
+    
+    .risk-result { 
         background: white;
-        padding: 2rem;
-        border-radius: 10px;
+        padding: 2.5rem 2rem;
+        border-radius: 12px;
         text-align: center;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        margin: 1rem 0;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        margin: 1.5rem 0;
+        border: 1px solid #e9ecef;
     }
     
-    .risk-low { border-left: 5px solid #28a745; }
-    .risk-intermediate { border-left: 5px solid #ffc107; }
-    .risk-high { border-left: 5px solid #dc3545; }
+    .risk-low { 
+        border-left: 6px solid #28a745;
+        background: linear-gradient(135deg, #ffffff 0%, #f8fff9 100%);
+    }
+    .risk-intermediate { 
+        border-left: 6px solid #ffc107;
+        background: linear-gradient(135deg, #ffffff 0%, #fffef8 100%);
+    }
+    .risk-high { 
+        border-left: 6px solid #dc3545;
+        background: linear-gradient(135deg, #ffffff 0%, #fff8f8 100%);
+    }
     
     .risk-percentage {
-        font-size: 3rem;
+        font-size: 3.5rem;
         font-weight: bold;
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.8rem;
+        line-height: 1;
     }
     
     .risk-low .risk-percentage { color: #28a745; }
-    .risk-intermediate .risk-percentage { color: #ffc107; }
+    .risk-intermediate .risk-percentage { color: #e6a500; }
     .risk-high .risk-percentage { color: #dc3545; }
     
     .risk-category {
-        font-size: 1.2rem;
+        font-size: 1.3rem;
         font-weight: 600;
         margin-bottom: 1rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
     }
     
     .risk-description {
         color: #666;
-        font-size: 0.95rem;
-        line-height: 1.4;
+        font-size: 1rem;
+        line-height: 1.5;
+        max-width: 300px;
+        margin: 0 auto;
+    }
+    
+    .chart-container {
+        background: white;
+        padding: 1.5rem;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        margin-bottom: 1.5rem;
+        border: 1px solid #e9ecef;
+    }
+    
+    .metrics-section {
+        background: white;
+        padding: 1.5rem;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        border: 1px solid #e9ecef;
+    }
+    
+    .metrics-title {
+        font-size: 1.2rem;
+        color: #333;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        text-align: center;
+        padding-bottom: 0.5rem;
+        border-bottom: 1px solid #e9ecef;
+    }
+    
+    /* Streamlit metric styling */
+    .stMetric {
+        background: #f8f9fa;
+        padding: 0.8rem;
+        border-radius: 8px;
+        border: 1px solid #e9ecef;
+        text-align: center;
+    }
+    
+    /* Input styling */
+    .stSelectbox label, .stNumberInput label {
+        font-weight: 600 !important;
+        color: #333 !important;
+        font-size: 0.95rem !important;
+        margin-bottom: 0.5rem !important;
+    }
+    
+    .stSelectbox > div > div, .stNumberInput > div > div > input {
+        border-radius: 8px !important;
+        border: 2px solid #e9ecef !important;
+        font-size: 0.95rem !important;
+    }
+    
+    .stSelectbox > div > div:focus-within, .stNumberInput > div > div:focus-within {
+        border-color: #0066cc !important;
+        box-shadow: 0 0 0 2px rgba(0, 102, 204, 0.1) !important;
+    }
+    
+    /* Column headers in input section */
+    .input-section .stMarkdown p strong {
+        color: #0066cc !important;
+        font-size: 1rem !important;
+        font-weight: 700 !important;
+        margin-bottom: 1rem !important;
+        display: block !important;
+        text-align: center !important;
+        padding-bottom: 0.5rem !important;
+        border-bottom: 2px solid #e9ecef !important;
+    }
+    
+    /* Expander styling */
+    .streamlit-expanderHeader {
+        background-color: #f8f9fa !important;
+        border-radius: 8px !important;
+        border: 1px solid #e9ecef !important;
+        font-weight: 600 !important;
     }
     
     /* Hide Streamlit elements */
@@ -101,6 +207,19 @@ st.markdown("""
     footer {visibility: hidden;}
     header {visibility: hidden;}
     .stDeployButton {display: none;}
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .app-title {
+            font-size: 2.2rem;
+        }
+        .risk-percentage {
+            font-size: 2.8rem;
+        }
+        .input-section {
+            padding: 1.5rem;
+        }
+    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -193,7 +312,7 @@ def main():
     <div class="main-header">
         <h1 class="app-title">🏥 SalivAI</h1>
         <p class="app-subtitle">Salivary Gland Malignancy Risk Assessment</p>
-        <p style="color: #888; font-size: 0.9rem;">Evidence-based clinical decision support tool</p>
+        <p class="app-tagline">Evidence-based clinical decision support tool</p>
     </div>
     """, unsafe_allow_html=True)
     
@@ -201,22 +320,27 @@ def main():
     st.markdown('<div class="input-section">', unsafe_allow_html=True)
     st.markdown('<h3 class="section-title">📋 Patient Information</h3>', unsafe_allow_html=True)
     
-    col1, col2, col3, col4 = st.columns(4)
+    col1, col2, col3, col4 = st.columns(4, gap="medium")
     
     with col1:
+        st.markdown("**Demographics**")
         age = st.number_input("Patient Age", min_value=18, max_value=90, value=55)
         gender = st.selectbox("Gender", ["female", "male"])
     
     with col2:
+        st.markdown("**Tumor Characteristics**")
         location = st.selectbox("Tumor Location", ["parotid", "submandibular", "minor"])
         size = st.selectbox("Tumor Size", ["≤2cm", "2-4cm", ">4cm"])
     
     with col3:
+        st.markdown("**Imaging Features**")
         margins = st.selectbox("Tumor Margins", ["regular", "irregular"])
         echo = st.selectbox("Echogenicity", ["iso-hyperechoic", "hypoechoic"])
     
     with col4:
+        st.markdown("**Vascular Pattern**")
         vascularity = st.selectbox("Vascularity", ["normal", "increased"])
+        st.markdown("")  # Empty space for alignment
     
     st.markdown('</div>', unsafe_allow_html=True)
     
@@ -231,14 +355,17 @@ def main():
     risk_result = predictor.predict_risk_category(input_df)[0]
     
     # Results Section
+    st.markdown('<div class="results-section">', unsafe_allow_html=True)
     st.markdown('<h3 class="section-title">🎯 Risk Assessment Results</h3>', unsafe_allow_html=True)
     
-    col1, col2 = st.columns([1, 1])
+    col1, col2 = st.columns([1, 1], gap="large")
     
     with col1:
         # Risk gauge
+        st.markdown('<div class="chart-container">', unsafe_allow_html=True)
         gauge_fig = create_simple_gauge(probability)
         st.plotly_chart(gauge_fig, use_container_width=True)
+        st.markdown('</div>', unsafe_allow_html=True)
         
         # Risk category display
         risk_category = risk_result['risk_category']
@@ -262,12 +389,15 @@ def main():
     
     with col2:
         # Feature importance
+        st.markdown('<div class="chart-container">', unsafe_allow_html=True)
         importance = predictor.get_feature_importance()
         importance_fig = create_simple_bar_chart(importance)
         st.plotly_chart(importance_fig, use_container_width=True)
+        st.markdown('</div>', unsafe_allow_html=True)
         
         # Model performance metrics
-        st.markdown("### 📊 Model Performance")
+        st.markdown('<div class="metrics-section">', unsafe_allow_html=True)
+        st.markdown('<div class="metrics-title">📊 Model Performance</div>', unsafe_allow_html=True)
         
         metric_col1, metric_col2 = st.columns(2)
         with metric_col1:
@@ -276,6 +406,9 @@ def main():
         with metric_col2:
             st.metric("Specificity", "91%", help="True negative rate")
             st.metric("Studies", "25+", help="Number of literature sources")
+        st.markdown('</div>', unsafe_allow_html=True)
+    
+    st.markdown('</div>', unsafe_allow_html=True)
     
     # Additional Information
     st.markdown("---")
