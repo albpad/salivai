@@ -31,11 +31,6 @@ The model assesses malignancy risk based on:
 - **Tumor characteristics**: Location (parotid/submandibular/minor), size (≤2cm/2-4cm/>4cm)
 - **Imaging features**: Margins (regular/irregular), echogenicity (iso-hyperechoic/hypoechoic), vascularity (normal/increased)
 
-## 📊 Risk Stratification
-
-- **Low Risk** (<30%): Clinical follow-up recommended
-- **Intermediate Risk** (30-70%): Consider biopsy/FNA
-- **High Risk** (>70%): Surgical evaluation recommended
 
 ## 🚀 Quick Start
 
