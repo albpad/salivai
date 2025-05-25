@@ -153,132 +153,17 @@ st.markdown("""
         border-radius: 8px !important;
     }
     
-    /* Results grid */
-    .results-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        gap: 2rem;
-        margin-bottom: 3rem;
+    /* Clean section styling */
+    .stMarkdown h3 {
+        color: var(--neutral-700) !important;
+        font-weight: 600 !important;
+        margin-bottom: 1rem !important;
     }
     
-    .result-card {
-        background: white;
-        border-radius: 20px;
-        padding: 2rem;
-        border: 1px solid var(--neutral-200);
-        box-shadow: 
-            0 10px 15px -3px rgba(0, 0, 0, 0.1),
-            0 4px 6px -2px rgba(0, 0, 0, 0.05);
-        transition: all 0.3s ease;
-        position: relative;
-        overflow: hidden;
-    }
-    
-    .result-card::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 4px;
-        background: linear-gradient(90deg, var(--primary-blue), var(--primary-blue-light));
-    }
-    
-    .result-card:hover {
-        transform: translateY(-4px);
-        box-shadow: 
-            0 20px 25px -5px rgba(0, 0, 0, 0.15),
-            0 10px 10px -5px rgba(0, 0, 0, 0.1);
-    }
-    
-    .card-title {
-        font-size: 1.125rem;
-        font-weight: 600;
-        color: var(--neutral-700);
-        margin-bottom: 1.5rem;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-    }
-    
-    /* Risk category styling */
-    .risk-display {
-        text-align: center;
-        padding: 2rem 1rem;
-    }
-    
-    .risk-percentage {
-        font-size: 4rem;
-        font-weight: 800;
-        line-height: 1;
-        margin-bottom: 1rem;
-    }
-    
-    .risk-label {
-        font-size: 1.25rem;
-        font-weight: 600;
-        margin-bottom: 1rem;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-    }
-    
-    .risk-description {
-        font-size: 0.875rem;
-        color: var(--neutral-600);
-        line-height: 1.5;
-    }
-    
-    .risk-low .risk-percentage { color: var(--success-green); }
-    .risk-intermediate .risk-percentage { color: var(--warning-orange); }
-    .risk-high .risk-percentage { color: var(--danger-red); }
-    
-    .risk-low .risk-label { color: var(--success-green); }
-    .risk-intermediate .risk-label { color: var(--warning-orange); }
-    .risk-high .risk-label { color: var(--danger-red); }
-    
-    /* Metrics grid */
-    .metrics-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-        gap: 1rem;
-        margin-top: 2rem;
-    }
-    
-    .metric-card {
-        background: var(--neutral-50);
-        border-radius: 12px;
-        padding: 1.5rem 1rem;
-        text-align: center;
-        border: 1px solid var(--neutral-200);
-        transition: all 0.3s ease;
-    }
-    
-    .metric-card:hover {
-        background: white;
-        transform: translateY(-2px);
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-    }
-    
-    .metric-value {
-        font-size: 1.875rem;
-        font-weight: 700;
-        color: var(--primary-blue);
-        margin-bottom: 0.5rem;
-    }
-    
-    .metric-label {
-        font-size: 0.75rem;
-        color: var(--neutral-600);
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-        font-weight: 500;
-    }
-    
-    /* Bottom section */
-    .bottom-section {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 2rem;
-        margin-top: 3rem;
+    .stMarkdown h4 {
+        color: var(--neutral-600) !important;
+        font-weight: 500 !important;
+        margin-bottom: 0.5rem !important;
     }
     
     /* Hide Streamlit elements */
@@ -288,21 +173,9 @@ st.markdown("""
     .stDeployButton {display: none;}
     
     /* Responsive design */
-    @media (max-width: 1024px) {
-        .results-grid {
-            grid-template-columns: 1fr;
-        }
-        .bottom-section {
-            grid-template-columns: 1fr;
-        }
-    }
-    
     @media (max-width: 768px) {
         .app-title {
             font-size: 2.5rem;
-        }
-        .input-grid {
-            grid-template-columns: 1fr;
         }
     }
 </style>
@@ -585,86 +458,75 @@ def main():
     probability = predictor.predict_proba(input_df)[0]
     risk_result = predictor.predict_risk_category(input_df)[0]
     
-    # Results section
-    st.markdown('<div class="results-grid">', unsafe_allow_html=True)
+    # Results section with 3 columns
+    col1, col2, col3 = st.columns(3)
     
-    # Main risk gauge
-    st.markdown('<div class="result-card">', unsafe_allow_html=True)
-    st.markdown('<div class="card-title">Risk Assessment</div>', unsafe_allow_html=True)
-    gauge_fig = create_advanced_gauge(probability)
-    st.plotly_chart(gauge_fig, use_container_width=True)
-    st.markdown('</div>', unsafe_allow_html=True)
+    with col1:
+        st.markdown("### 🎯 Risk Assessment")
+        gauge_fig = create_advanced_gauge(probability)
+        st.plotly_chart(gauge_fig, use_container_width=True)
     
-    # Feature importance
-    st.markdown('<div class="result-card">', unsafe_allow_html=True)
-    st.markdown('<div class="card-title">Contributing Factors</div>', unsafe_allow_html=True)
-    importance = predictor.get_feature_importance()
-    importance_fig = create_feature_importance_chart(importance)
-    st.plotly_chart(importance_fig, use_container_width=True)
-    st.markdown('</div>', unsafe_allow_html=True)
+    with col2:
+        st.markdown("### 📊 Contributing Factors")
+        importance = predictor.get_feature_importance()
+        importance_fig = create_feature_importance_chart(importance)
+        st.plotly_chart(importance_fig, use_container_width=True)
     
-    # Risk category display
-    st.markdown('<div class="result-card">', unsafe_allow_html=True)
-    risk_category = risk_result['risk_category']
-    if "Low" in risk_category:
-        risk_class = "risk-low"
-        description = "Low probability of malignancy. Continue routine monitoring."
-    elif "Intermediate" in risk_category:
-        risk_class = "risk-intermediate"
-        description = "Moderate risk detected. Consider additional imaging or biopsy."
-    else:
-        risk_class = "risk-high"
-        description = "High malignancy risk. Urgent evaluation recommended."
-    
-    st.markdown(f"""
-    <div class="risk-display {risk_class}">
-        <div class="risk-percentage">{probability:.1%}</div>
-        <div class="risk-label">{risk_category}</div>
-        <div class="risk-description">{description}</div>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    # Model performance metrics
-    st.markdown("""
-    <div class="metrics-grid">
-        <div class="metric-card">
-            <div class="metric-value">0.89</div>
-            <div class="metric-label">AUC-ROC</div>
+    with col3:
+        st.markdown("### ⚠️ Risk Category")
+        risk_category = risk_result['risk_category']
+        if "Low" in risk_category:
+            risk_class = "risk-low"
+            description = "Low probability of malignancy. Continue routine monitoring."
+            color = "#059669"
+        elif "Intermediate" in risk_category:
+            risk_class = "risk-intermediate"
+            description = "Moderate risk detected. Consider additional imaging or biopsy."
+            color = "#d97706"
+        else:
+            risk_class = "risk-high"
+            description = "High malignancy risk. Urgent evaluation recommended."
+            color = "#dc2626"
+        
+        st.markdown(f"""
+        <div style="text-align: center; padding: 2rem 1rem;">
+            <div style="font-size: 3rem; font-weight: 800; color: {color}; margin-bottom: 1rem;">
+                {probability:.1%}
+            </div>
+            <div style="font-size: 1.25rem; font-weight: 600; color: {color}; margin-bottom: 1rem; text-transform: uppercase;">
+                {risk_category}
+            </div>
+            <div style="font-size: 0.875rem; color: #64748b; line-height: 1.5;">
+                {description}
+            </div>
         </div>
-        <div class="metric-card">
-            <div class="metric-value">0.85</div>
-            <div class="metric-label">Sensitivity</div>
-        </div>
-        <div class="metric-card">
-            <div class="metric-value">0.91</div>
-            <div class="metric-label">Specificity</div>
-        </div>
-        <div class="metric-card">
-            <div class="metric-value">25+</div>
-            <div class="metric-label">Studies</div>
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
+        """, unsafe_allow_html=True)
+        
+        # Model performance metrics
+        st.markdown("#### 📈 Model Performance")
+        
+        metric_col1, metric_col2 = st.columns(2)
+        with metric_col1:
+            st.metric("AUC-ROC", "0.89")
+            st.metric("Sensitivity", "0.85")
+        with metric_col2:
+            st.metric("Specificity", "0.91")
+            st.metric("Studies", "25+")
     
-    st.markdown('</div>', unsafe_allow_html=True)
-    st.markdown('</div>', unsafe_allow_html=True)
+    st.markdown("---")
     
     # Bottom section with additional visualizations
-    st.markdown('<div class="bottom-section">', unsafe_allow_html=True)
+    col1, col2 = st.columns(2)
     
-    # Population distribution
-    st.markdown('<div class="result-card">', unsafe_allow_html=True)
-    st.markdown('<div class="card-title">Population Risk Distribution</div>', unsafe_allow_html=True)
-    donut_fig = create_risk_distribution_donut()
-    st.plotly_chart(donut_fig, use_container_width=True)
-    st.markdown('</div>', unsafe_allow_html=True)
+    with col1:
+        st.markdown("### 🍩 Population Risk Distribution")
+        donut_fig = create_risk_distribution_donut()
+        st.plotly_chart(donut_fig, use_container_width=True)
     
-    # Confidence intervals
-    st.markdown('<div class="result-card">', unsafe_allow_html=True)
-    st.markdown('<div class="card-title">Evidence Base</div>', unsafe_allow_html=True)
-    ci_fig = create_confidence_intervals()
-    st.plotly_chart(ci_fig, use_container_width=True)
-    st.markdown('</div>', unsafe_allow_html=True)
+    with col2:
+        st.markdown("### 📋 Evidence Base")
+        ci_fig = create_confidence_intervals()
+        st.plotly_chart(ci_fig, use_container_width=True)
     
     st.markdown('</div>', unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
