@@ -1,0 +1,9 @@
+age,gender,location,size,margins,echo,vascularity,malignancy_probability,risk_category,recommendation
+45,female,parotid,≤2cm,regular,iso-hyperechoic,normal,0.038707327103875776,Low Risk,Clinical follow-up
+62,male,submandibular,2-4cm,irregular,hypoechoic,increased,0.8573436207886515,High Risk,Surgical evaluation
+38,female,minor,>4cm,regular,hypoechoic,normal,0.45180014361160437,Intermediate Risk,Consider biopsy/FNA
+71,male,parotid,2-4cm,irregular,hypoechoic,increased,0.7275940793088628,High Risk,Surgical evaluation
+29,female,submandibular,≤2cm,regular,iso-hyperechoic,normal,0.08177656823872323,Low Risk,Clinical follow-up
+55,male,minor,>4cm,irregular,hypoechoic,increased,0.9339647496140683,High Risk,Surgical evaluation
+67,female,parotid,2-4cm,irregular,hypoechoic,normal,0.4029111171891859,Intermediate Risk,Consider biopsy/FNA
+42,male,submandibular,≤2cm,regular,iso-hyperechoic,normal,0.11399176865622528,Low Risk,Clinical follow-up

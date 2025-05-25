@@ -1,0 +1,17 @@
+# SalivAI - Literature-Based Salivary Gland Malignancy Predictor
+# Honest implementation using only validated literature coefficients
+
+# Core scientific computing
+numpy>=1.21.0
+pandas>=1.3.0
+scikit-learn>=1.0.0
+
+# Web application
+streamlit>=1.28.0
+plotly>=5.0.0
+
+# Visualization
+matplotlib>=3.5.0
+
+# Optional: For enhanced data handling
+scipy>=1.7.0 
